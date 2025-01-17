@@ -371,12 +371,25 @@
                     <div class="swiper-slide product-card">
                         <div class="pc__img-wrapper">
                             <a href="details.php">
-                                <img loading="lazy" src="{{asset('uploads/products')}}/{{$rproduct->image}}" width="330" height="400" alt="Cropped Faux leather Jacket" class="pc__img">
+                                <img loading="lazy" src="{{asset('uploads/products')}}/{{$rproduct->image}}" width="330" height="400" alt="{{$rproduct->name}}" class="pc__img">
                                 @if(count(explode(",",$rproduct->images))>0)
-                                <img loading="lazy" src="{{asset('uploads/products')}}/{{trim(explode(",",$rproduct->images)[0])}}" width="330" height="400" alt="Cropped Faux leather Jacket" class="pc__img pc__img-second">
+                                <img loading="lazy" src="{{asset('uploads/products')}}/{{trim(explode(",",$rproduct->images)[0])}}" width="330" height="400" alt="{{$rproduct->name}}" class="pc__img pc__img-second">
                                 @endif
                             </a>
-                            <button class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside" data-aside="cartDrawer" title="Add To Cart">Add To Cart</button>
+                            @if(Cart::instance("cart")->content()->where('id',$rproduct->id)->count()>0)
+                                <a href="{{route('cart.index')}}" class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart btn-warning">Go to Cart</a>
+                            @else
+                            <form name="addtocart-form" method="POST" action="{{route('cart.add')}}">
+                                @csrf
+                                <div class="product-single__addtocart">                                               
+                                    <input type="hidden" name="id" value="{{$product->id}}" />
+                                    <input type="hidden" name="name" value="{{$product->name}}" />
+                                    <input type="hidden" name="quantity" value="1"/>
+                                    <input type="hidden" name="price" value="{{$product->sale_price == '' ? $product->regular_price:$product->sale_price}}" />
+                                    <button type="submit" class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart">Add to Cart</button>
+                                </div>
+                            </form>
+                            @endif
                         </div>
 
                         <div class="pc__info position-relative">

@@ -1339,9 +1339,9 @@ function pureFadeOut(e) {
     window.location.href='./shop_order_complete.html';
   });
 
-  document.querySelector('.js-show-register').addEventListener('click', function(e) {
+  /*document.querySelector('.js-show-register').addEventListener('click', function(e) {
     document.querySelector(this.getAttribute("href")).click();
-  });
+  });*/
 
   $('button.js-add-wishlist, a.add-to-wishlist').off('click').on('click', function() {
     if($(this).hasClass("active"))

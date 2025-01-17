@@ -38,7 +38,7 @@
 
                 <div class="section-menu-left">
                     <div class="box-logo">
-                        <a href="index.html" id="site-logo-inner">
+                        <a href="{{route('home.index')}}" id="site-logo-inner">
                             <img class="" id="logo_header" alt="" src="{{asset('images/logo/logo.png')}}"
                                 data-light="{{asset('images/logo/logo.png')}}" data-dark="{{asset('images/logo/logo.png')}}">
                         </a>
@@ -142,7 +142,7 @@
                                 <li class="menu-item">
                                     <a href="coupons.html" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Coupns</div>
+                                        <div class="text">Coupons</div>
                                     </a>
                                 </li>
 

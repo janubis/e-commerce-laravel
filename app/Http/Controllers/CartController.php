@@ -13,10 +13,34 @@ class CartController extends Controller
         $cartItems = Cart::instance('cart')->content();
         return view('cart',compact('cartItems'));
     }
-    public function addToCart(Request $request)
+    public function add_to_cart(Request $request)
     {
         Cart::instance('cart')->add($request->id,$request->name,$request->quantity,$request->price)->associate('App\Models\Product');        
         session()->flash('success', 'Product is Added to Cart Successfully !');        
-        return response()->json(['status'=>200,'message'=>'Success ! Item Successfully added to your cart.']);
+        return redirect()->back();
+        //return response()->json(['status'=>200,'message'=>'Success ! Item Successfully added to your cart.']);
     } 
+    public function increase_cart_quantity($rowId)
+    {
+        $product = Cart::instance('cart')->get($rowId);
+        $qty = $product->qty + 1;
+        Cart::instance('cart')->update($rowId,$qty);
+        return redirect()->back();
+    }
+    public function decrease_cart_quantity($rowId){
+        $product = Cart::instance('cart')->get($rowId);
+        $qty = $product->qty - 1;
+        Cart::instance('cart')->update($rowId,$qty);
+        return redirect()->back();
+    }
+    public function remove_item_from_cart($rowId)
+    {
+        Cart::instance('cart')->remove($rowId);
+        return redirect()->back();
+    }
+    public function empty_cart()
+    {
+        Cart::instance('cart')->destroy();
+        return redirect()->back();
+    }
 }
