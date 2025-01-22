@@ -140,7 +140,7 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="coupons.html" class="">
+                                    <a href="{{route('admin.coupons')}}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
                                         <div class="text">Coupons</div>
                                     </a>
@@ -178,7 +178,7 @@
                     <div class="header-dashboard">
                         <div class="wrap">
                             <div class="header-left">
-                                <a href="index-2.html">
+                                <a href="{{route("admin.index")}}">
                                     <img class="" id="logo_header_mobile" alt="" src="{{asset('images/logo/logo.png')}}"
                                         data-light="{{asset('images/logo/logo.png')}}" data-dark="{{asset('images/logo/logo.png')}}"
                                         data-width="154px" data-height="52px" data-retina="{{asset('images/logo/logo.png')}}">
