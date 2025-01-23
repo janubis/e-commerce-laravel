@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name("shop.product.details");
+Route::get('/contact',[HomeController::class,'contact'])->name('home.contact');
+Route::post('/contact', [HomeController::class, 'add_contact'])->name('home.contact.add');
 
 //Cart Section Development
 Route::get('/cart',[CartController::class,'index'])->name('cart.index');
@@ -86,8 +88,12 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::put('/admin/coupon/update',[AdminController::class,'update_coupon'])->name('admin.coupon.update');
     Route::delete('/admin/coupon/{id}/delete',[AdminController::class,'delete_coupon'])->name('admin.coupon.delete');
 
-     //ORDER MANAGEMENT
-     Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
-     Route::get('/admin/order/items/{order_id}',[AdminController::class,'order_items'])->name('admin.order.items');
-     Route::put('/admin/order/update-status',[AdminController::class,'update_order_status'])->name('admin.order.status.update');
+    //ORDER MANAGEMENT
+    Route::get('/admin/orders',[AdminController::class,'orders'])->name('admin.orders');
+    Route::get('/admin/order/items/{order_id}',[AdminController::class,'order_items'])->name('admin.order.items');
+    Route::put('/admin/order/update-status',[AdminController::class,'update_order_status'])->name('admin.order.status.update');
+
+    //CONTACT MANAGEMENT
+    Route::get('/admin/contacts', [AdminController::class, 'contacts'])->name('admin.contacts');
+    Route::delete('/admin/contact/{id}/delete',[AdminController::class,'delete_contact'])->name('admin.contact.delete');
 });

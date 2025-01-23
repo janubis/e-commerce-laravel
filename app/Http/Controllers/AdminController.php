@@ -5,6 +5,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Coupon;
+use App\Models\Contact;
 use App\Models\Transaction;
 use App\Models\OrderItem;
 use App\Models\Order;
@@ -466,5 +467,15 @@ class AdminController extends Controller
             $transaction->save();
         }
         return back()->with("status", "Status changed successfully!");
+    }
+    public function contacts(){
+        $contacts = Contact::orderBy("created_at","desc")->paginate(12);
+        return view("admin.contacts", compact("contacts"));
+    }
+    public function delete_contact($id)
+    {
+        $contact = Contact::find($id);        
+        $contact->delete();
+        return redirect()->route('admin.contacts')->with('status','Record has been deleted successfully !');
     }
 }
