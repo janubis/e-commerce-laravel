@@ -127,6 +127,18 @@
                                         <div class="text">Холбоо барих</div>
                                     </a>
                                 </li>
+                                <li class="menu-item">
+                                    <a href="{{route('admin.coupons')}}" class="menu-item-button">
+                                        <div class="icon"><i class="icon-grid"></i></div>
+                                        <div class="text">Купон код</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="{{ route('admin.users') }}" class="menu-item-button">
+                                        <div class="icon"><i class="icon-user"></i></div>
+                                        <div class="text">Хэрэглэгчид</div>
+                                    </a>
+                                </li>
 
                                 <li class="menu-item">
                                     <a href="slider.html" class="">
@@ -134,20 +146,8 @@
                                         <div class="text">Slider</div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="{{route('admin.coupons')}}" class="">
-                                        <div class="icon"><i class="icon-grid"></i></div>
-                                        <div class="text">Coupons</div>
-                                    </a>
-                                </li>
 
-                                <li class="menu-item">
-                                    <a href="users.html" class="">
-                                        <div class="icon"><i class="icon-user"></i></div>
-                                        <div class="text">User</div>
-                                    </a>
-                                </li>
-
+                                
                                 <li class="menu-item">
                                     <a href="settings.html" class="">
                                         <div class="icon"><i class="icon-settings"></i></div>

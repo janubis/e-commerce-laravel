@@ -9,6 +9,7 @@ use App\Models\Contact;
 use App\Models\Transaction;
 use App\Models\OrderItem;
 use App\Models\Order;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -477,5 +478,9 @@ class AdminController extends Controller
         $contact = Contact::find($id);        
         $contact->delete();
         return redirect()->route('admin.contacts')->with('status','Record has been deleted successfully !');
+    }
+    public function users(){
+        $users = User::orderBy("created_at","desc")->paginate(12);
+        return view("admin.users", compact("users"));
     }
 }
