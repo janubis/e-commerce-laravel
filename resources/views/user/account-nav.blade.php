@@ -1,13 +1,13 @@
 <ul class="account-nav">
-    <li><a href="{{ route('user.index') }}" class="menu-link menu-link_us-s">Dashboard</a></li>
-    <li><a href="{{ route('user.account.orders')}}" class="menu-link menu-link_us-s {{Route::is('user.account.orders') ? 'menu-link_active':''}}">Orders</a></li>
-    <li><a href="account-address.html" class="menu-link menu-link_us-s">Addresses</a></li>
-    <li><a href="account-details.html" class="menu-link menu-link_us-s">Account Details</a></li>
-    <li><a href="account-wishlist.html" class="menu-link menu-link_us-s">Wishlist</a></li>
+    <li><a href="{{ route('user.index') }}" class="menu-link menu-link_us-s">Хэрэглэгчийн удирдлага</a></li>
+    <li><a href="{{ route('user.account.orders')}}" class="menu-link menu-link_us-s {{Route::is('user.account.orders') ? 'menu-link_active':''}}">Миний захиалгууд</a></li>
+    <li><a href="{{ route('user.account.address') }}" class="menu-link menu-link_us-s {{Route::is('user.account.address') ? 'menu-link_active':''}}">Хүргэлтийн хаяг</a></li>
+    <li><a href="{{ route('user.account.profile') }}" class="menu-link menu-link_us-s {{Route::is('user.account.profile') ? 'menu-link_active':''}}">Хувийн мэдээлэл</a></li>
+    <li><a href="{{ route('wishlist.index')}}" class="menu-link menu-link_us-s">Таалагдсан бараа</a></li>
     <li>
         <form method="POST" action="{{ route('logout') }}" id="logout-form">
             @csrf
-            <a href="{{ route('logout') }}" class="menu-link menu-link_us-s" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+            <a href="{{ route('logout') }}" class="menu-link menu-link_us-s" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Гарах</a>
         </form>
     </li>
 </ul>

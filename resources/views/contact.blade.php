@@ -70,7 +70,7 @@
                 </div>
             </form>
             {{-- Render the reCAPTCHA JS --}}
-            {!! NoCaptcha::renderJs() !!}
+            {{-- NoCaptcha::renderJs() --}}
         </div>
       </div>
     </section>

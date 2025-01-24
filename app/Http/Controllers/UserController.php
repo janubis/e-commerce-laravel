@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Address;
+use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -36,5 +38,15 @@ class UserController extends Controller
         $order->canceled_date = Carbon::now();
         $order->save();
         return back()->with("status", "Order has been cancelled successfully!");
+    }
+    public function account_address()
+    {
+    $address = Address::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+    return view('user.address',compact('address'));
+    }
+    public function account_profile()
+    {
+    $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+    return view('user.profile',compact('profile'));
     }
 }
