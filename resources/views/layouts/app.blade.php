@@ -322,7 +322,7 @@
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
               <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
+                <a href="{{ route('home.about') }}" class="navigation__link">About</a>
               </li>
               <li class="navigation__item">
                 <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
@@ -411,7 +411,7 @@
                 <a href="{{route('cart.index')}}" class="navigation__link">Cart</a>
               </li>
               <li class="navigation__item">
-                <a href="about.html" class="navigation__link">About</a>
+                <a href="{{ route('home.about') }}" class="navigation__link">About</a>
               </li>
               <li class="navigation__item">
                 <a href="{{ route('home.contact') }}" class="navigation__link">Contact</a>
@@ -604,9 +604,9 @@
   
       <div class="footer-bottom">
         <div class="container d-md-flex align-items-center">
-          <span class="footer-copyright me-auto">©2025 Powered LLC.  Хөгжүүлсэн: <a href="https://www.facebook.com/javkhlanr/">rjavkhlan</a>. </span>
+          <span class="footer-copyright me-auto">©2025 Javkhlan Rentsendorj.  Хөгжүүлсэн: <a href="https://www.facebook.com/javkhlanr/">rjavkhlan</a>. </span>
           <div class="footer-settings d-md-flex align-items-center">
-            <a href="privacy-policy.html">Нууцлалын бодлого</a> &nbsp;|&nbsp; <a href="terms-conditions.html">Үйлчилгээний нөхцөл</a>
+            <a href="{{ route('home.privacy') }}">Нууцлалын бодлого</a> &nbsp;|&nbsp; <a href="{{ route('home.terms') }}">Үйлчилгээний нөхцөл</a>
           </div>
         </div>
       </div>

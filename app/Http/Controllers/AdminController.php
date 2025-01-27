@@ -21,6 +21,21 @@ class AdminController extends Controller
     //
     public function index()
     {
+        $total_order = '';
+        $total_amout = '';
+        $pending_order = '';
+        $pending_order_amount = '';
+        $delivered_order = '';
+        $delivered_order_amount = '';
+        $canceled_order = '';
+        $canceled_order_amount = '';
+        $total_amout = '';
+        $total_amout = '';
+        $total_amout = '';
+        $total_amout = '';
+        $total_amout = '';
+
+
         return view('admin.index');
     }
     
@@ -480,6 +495,20 @@ class AdminController extends Controller
         return redirect()->route('admin.contacts')->with('status','Record has been deleted successfully !');
     }
     public function users(){
+        $users = User::orderBy("created_at","desc")->paginate(12);
+        return view("admin.users", compact("users"));
+    }
+    public function account(){
+        $profile = User::where('id',Auth::user()->id)->first();
+        return view("admin.account", compact("profile"));
+    }
+    public function user_account($user_id){
+        $profile = User::where('id',$user_id)->first();
+        return view("admin.users.account", compact("profile"));
+    }
+    public function update_account(Request $request){
+        //end baahan user data update hiihed zoriulj yum beldene
+        $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
         $users = User::orderBy("created_at","desc")->paginate(12);
         return view("admin.users", compact("users"));
     }

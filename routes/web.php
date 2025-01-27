@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/about',[HomeController::class,'about'])->name('home.about');
+Route::get('/terms-of-condition',[HomeController::class,'terms'])->name('home.terms');
+Route::get('/privacy-policy',[HomeController::class,'privacy'])->name('home.privacy');
+
 Route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 Route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name("shop.product.details");
 Route::get('/contact',[HomeController::class,'contact'])->name('home.contact');
@@ -101,4 +106,7 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
 
     //USER MANAGEMENT
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+
+    //ACCOUNT MANAGEMENT
+    Route::get('/admin/account', [AdminController::class, 'account'])->name('admin.account');
 });
