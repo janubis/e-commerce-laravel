@@ -41,12 +41,72 @@ class UserController extends Controller
     }
     public function account_address()
     {
-    $address = Address::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
-    return view('user.address',compact('address'));
+        $address = Address::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+        //dd($address);
+        return view('user.address',compact('address'));
+    }
+    public function address_update(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $address = Address::where('user_id',$user_id)->where('isdefault',true)->first();
+        //dd($request->all());
+        if(!$address)
+        {
+            
+            $request->validate([                
+                'name' => 'required|max:100',
+                'phone' => 'required|numeric|digits:8',
+                'zip' => 'required|numeric|digits:6',
+                'state' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'locality' => 'required'
+            ]);
+
+            $address = new Address();    
+            $address->user_id = $user_id;    
+            $address->name = $request->name;
+            $address->phone = $request->phone;
+            $address->zip = $request->zip;
+            $address->state = $request->state;
+            $address->city = $request->city;
+            $address->address = $request->address;
+            $address->locality = $request->locality;
+            $address->landmark = '';
+            $address->country = '';
+            $address->isdefault = true;
+            $address->save();
+        } else {
+            
+            $request->validate([                
+                'name' => 'required|max:100',
+                'phone' => 'required|numeric|digits:8',
+                'zip' => 'required|numeric|digits:6',
+                'state' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'locality' => 'required',      
+            ]);  
+            $address = Address::find($request->id);
+            $address->user_id = $user_id;    
+            $address->name = $request->name;
+            $address->phone = $request->phone;
+            $address->zip = $request->zip;
+            $address->state = $request->state;
+            $address->city = $request->city;
+            $address->address = $request->address;
+            $address->locality = $request->locality;
+            $address->landmark = '';
+            $address->country = '';
+            $address->isdefault = true;
+            $address->save();
+        }
+
+        return redirect()->route('user.account.address')->with('status','Address has been updated succesfully');;
     }
     public function account_profile()
     {
-    $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
-    return view('user.profile',compact('profile'));
+        $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+        return view('user.profile',compact('profile'));
     }
 }

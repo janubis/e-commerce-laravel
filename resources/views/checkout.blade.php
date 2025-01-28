@@ -48,8 +48,7 @@
                         </div>
                         <div class="col-6">
                             @if($address)  
-                            <a href="{{route('user.account.addresses')}}" class="btn btn-info btn-sm float-right">Change Address</a> 
-                            <a href="{{route('user.account.address.edit',['address_id'=>$address->id])}}" class="btn btn-warning btn-sm float-right mr-3">Edit Address</a> 
+                            <a href="{{route('user.account.address')}}" class="btn btn-info btn-sm float-right">Change Address</a> 
                             @endif
                         </div>
                     </div>   
@@ -66,7 +65,7 @@
                                         <p>{{$address->zip}}</p>
                                         
 
-                                        <p>Phone :- {{$address->phone}}</p>                                        
+                                        <p>Phone : {{$address->phone}}</p>                                        
                                     </div>
                                 </div>                                
                             </div>
