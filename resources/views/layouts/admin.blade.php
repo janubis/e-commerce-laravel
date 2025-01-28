@@ -384,27 +384,35 @@
     <script src="{{ asset('js/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
+        
+
         (function ($) {
 
             var tfLineChart = (function () {
 
-                var chartBar = function () {
-
+                document.addEventListener("DOMContentLoaded", function () {
+            fetch('/admin/order/order-statistics')
+                .then(response => response.json())
+                .then(data => {
                     var options = {
-                        series: [{
-                            name: 'Total',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Pending',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 273.22, 208.12, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        },
-                        {
-                            name: 'Delivered',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }, {
-                            name: 'Canceled',
-                            data: [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
-                        }],
+                        series: [
+                            {
+                                name: 'Total',
+                                data: data.total,
+                            },
+                            {
+                                name: 'Pending',
+                                data: data.pending,
+                            },
+                            {
+                                name: 'Delivered',
+                                data: data.delivered,
+                            },
+                            {
+                                name: 'Canceled',
+                                data: data.canceled,
+                            },
+                        ],
                         chart: {
                             type: 'bar',
                             height: 325,
@@ -416,11 +424,11 @@
                             bar: {
                                 horizontal: false,
                                 columnWidth: '10px',
-                                endingShape: 'rounded'
+                                endingShape: 'rounded',
                             },
                         },
                         dataLabels: {
-                            enabled: false
+                            enabled: false,
                         },
                         legend: {
                             show: false,
@@ -435,41 +443,34 @@
                                     colors: '#212529',
                                 },
                             },
-                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            categories: data.months,
                         },
                         yaxis: {
                             show: false,
                         },
                         fill: {
-                            opacity: 1
+                            opacity: 1,
                         },
                         tooltip: {
                             y: {
                                 formatter: function (val) {
-                                    return "$ " + val + ""
-                                }
-                            }
-                        }
+                                    return "$ " + val;
+                                },
+                            },
+                        },
                     };
 
-                    chart = new ApexCharts(
+                    var chart = new ApexCharts(
                         document.querySelector("#line-chart-8"),
                         options
                     );
-                    if ($("#line-chart-8").length > 0) {
+
+                    if (document.querySelector("#line-chart-8")) {
                         chart.render();
                     }
-                };
-
-                /* Function ============ */
-                return {
-                    init: function () { },
-
-                    load: function () {
-                        chartBar();
-                    },
-                    resize: function () { },
-                };
+                })
+                .catch(error => console.error('Error fetching data:', error));
+                });
             })();
 
             jQuery(document).ready(function () { });

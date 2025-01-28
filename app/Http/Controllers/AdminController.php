@@ -21,23 +21,85 @@ class AdminController extends Controller
     //
     public function index()
     {
-        $total_order = '';
-        $total_amout = '';
-        $pending_order = '';
-        $pending_order_amount = '';
-        $delivered_order = '';
-        $delivered_order_amount = '';
-        $canceled_order = '';
-        $canceled_order_amount = '';
-        $total_amout = '';
-        $total_amout = '';
-        $total_amout = '';
-        $total_amout = '';
-        $total_amout = '';
+        $orders = Order::all();
+        $total_order = $orders->count();; 
+        $total_amount = $orders->sum('total');
 
+        $pending_orders = $orders->where('status', 'ordered');
+        $pending_order = $pending_orders->count();
+        $pending_order_amount = $pending_orders->sum('total');
 
-        return view('admin.index');
+        $delivered_orders = $orders->where('status', 'delivered');
+        $delivered_order = $delivered_orders->count();
+        $delivered_order_amount = $delivered_orders->sum('total');
+
+        $canceled_orders = $orders->where('status', 'canceled');
+        $canceled_order = $canceled_orders->count();
+        $canceled_order_amount = $canceled_orders->sum('total');
+
+        $orders = Order::where('status', 'ordered')->orderBy('created_at','DESC')->paginate(12);
+        
+        // Initialize arrays for data
+
+        return view('admin.index', compact(
+            'total_order',
+            'total_amount',
+            'pending_order',
+            'pending_order_amount',
+            'delivered_order',
+            'delivered_order_amount',
+            'canceled_order',
+            'canceled_order_amount', 
+            'orders'
+        ));
     }
+    
+
+    public function getOrderStatistics()
+    {
+        // Initialize arrays for data
+        $totalAmounts = [];
+        $pendingAmounts = [];
+        $deliveredAmounts = [];
+        $canceledAmounts = [];
+        $months = [];
+
+        // Get the last 12 months including the current month
+        for ($i = 11; $i >= 0; $i--) {
+            $month = Carbon::now()->subMonths($i);
+            $monthName = $month->format('M');
+            $months[] = $monthName;
+
+            // Fetch totals for each status
+            $totalAmounts[] = Order::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->sum('total');
+
+            $pendingAmounts[] = Order::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->where('status', 'ordered')
+                ->sum('total');
+
+            $deliveredAmounts[] = Order::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->where('status', 'delivered')
+                ->sum('total');
+
+            $canceledAmounts[] = Order::whereYear('created_at', $month->year)
+                ->whereMonth('created_at', $month->month)
+                ->where('status', 'canceled')
+                ->sum('total');
+        }
+
+        return response()->json([
+            'months' => $months,
+            'total' => $totalAmounts,
+            'pending' => $pendingAmounts,
+            'delivered' => $deliveredAmounts,
+            'canceled' => $canceledAmounts,
+        ]);
+    }
+
     
     //Brand Related Admin Section Starts Here
     public function brands(){
@@ -455,8 +517,8 @@ class AdminController extends Controller
     }
     public function orders()
     {
-            $orders = Order::orderBy('created_at','DESC')->paginate(12);
-            return view("admin.orders",compact('orders'));
+        $orders = Order::orderBy('created_at','DESC')->paginate(12);
+        return view("admin.orders",compact('orders'));
     }
     public function order_items($order_id){
         $order = Order::find($order_id);
