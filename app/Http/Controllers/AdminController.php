@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Laravel\Facades\Image; 
 
 class AdminController extends Controller
@@ -564,14 +565,23 @@ class AdminController extends Controller
         $profile = User::where('id',Auth::user()->id)->first();
         return view("admin.account", compact("profile"));
     }
-    public function user_account($user_id){
+    public function user_items($user_id){
         $profile = User::where('id',$user_id)->first();
-        return view("admin.users.account", compact("profile"));
+        return view("admin.user-edit", compact("profile"));
     }
     public function update_account(Request $request){
-        //end baahan user data update hiihed zoriulj yum beldene
-        $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
-        $users = User::orderBy("created_at","desc")->paginate(12);
-        return view("admin.users", compact("users"));
+        $order = Order::find($request->order_id);
+        $order->status = $request->order_status;
+        if($request->order_status=='delivered')
+        {
+            $order->delivered_date = Carbon::now();
+        }
+        else if($request->order_status=='canceled')
+        {
+            $order->canceled_date = Carbon::now();
+        }        
+        $order->save();
+        
+        return back()->with("status", "Status changed successfully!");
     }
 }

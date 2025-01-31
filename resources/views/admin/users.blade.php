@@ -47,6 +47,7 @@
                                     <th>Email</th>
                                     <th>Type</th>
                                     <th>Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -58,6 +59,15 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->utype}}</td>
                                         <td>{{$user->created_at}}</td>
+                                        <td class="text-center">
+                                            <a href="{{route('admin.user.items',['user_id'=>$user->id])}}">
+                                            <div class="list-icon-function view-icon">
+                                                <div class="item eye">
+                                                    <i class="icon-eye"></i>
+                                                </div>                                        
+                                            </div>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

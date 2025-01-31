@@ -59,6 +59,8 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/account-order/cancel-order',[UserController::class,'account_cancel_order'])->name('user.account_cancel_order');
     Route::get('/account-address',[UserController::class,'account_address'])->name('user.account.address');
     Route::get('/account-profile',[UserController::class,'account_profile'])->name('user.account.profile');
+    Route::put('/account-profile/update',[UserController::class,'account_profile_update'])->name('user.account_profile_update');
+    Route::put('/account-profile/password',[UserController::class,'account_password_update'])->name('user.account_password_update');
 });
 Route::middleware(['auth',AuthAdmin::class])->group(function(){
     Route::get('/admin',[AdminController::class,'index'])->name('admin.index');
@@ -107,6 +109,9 @@ Route::middleware(['auth',AuthAdmin::class])->group(function(){
 
     //USER MANAGEMENT
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/users/{user_id}',[AdminController::class,'user_items'])->name('admin.user.items');
+    Route::put('/admin/user/update',[AdminController::class,'user_update_data'])->name('admin.user.update');
+    Route::put('/admin/user/password',[AdminController::class,'user_update_password'])->name('admin.user.password');
 
     //ACCOUNT MANAGEMENT
     Route::get('/admin/account', [AdminController::class, 'account'])->name('admin.account');

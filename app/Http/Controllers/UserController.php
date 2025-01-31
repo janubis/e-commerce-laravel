@@ -109,4 +109,27 @@ class UserController extends Controller
         $profile = User::where('id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
         return view('user.profile',compact('profile'));
     }
+    public function account_profile_update(Request $request){
+        $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->first();
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+
+        $user->save();
+        return back()->with("status", "User information changed successfully!");
+    }
+    public function account_password_update(Request $request){
+        $user_id = Auth::user()->id;
+        $user = User::where('id',$user_id)->first();
+        if($user->name )
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->mobile = $request->mobile;
+
+        $user->save();
+        return back()->with("status", "User information changed successfully!");
+        
+    }
 }

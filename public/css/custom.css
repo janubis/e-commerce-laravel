@@ -20,11 +20,10 @@ body {
 
 .pagination {
     margin-left: 30px;
-
-    .page-link {
-        padding: 1.1rem;
-        font-size: 16px;
-    }
+}
+.page-link {
+    padding: 1.1rem;
+    font-size: 16px;
 }
 
 .swal-button--confirm {
